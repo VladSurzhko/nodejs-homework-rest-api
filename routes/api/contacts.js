@@ -4,6 +4,8 @@ const operations = require("../../models/contacts");
 
 const controller = require("../../controllers/index");
 const errorHandler = require("../../helpers/errorHandler");
+const isValidId = require("../../midllewares/isValidId");
+
 router.get("/", errorHandler(controller.getAll));
 
 router.get("/:contactId", errorHandler(controller.getById));
@@ -13,5 +15,12 @@ router.post("/", errorHandler(controller.add));
 router.delete("/:contactId", errorHandler(controller.remove));
 
 router.put("/:contactId", errorHandler(controller.update));
+
+
+router.patch(
+  "/:contactId/favorite",
+  isValidId,
+  errorHandler(controller.updateFavorite)
+);
 
 module.exports = router;
