@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 
 mongoose
-  .connect("mongodb+srv://Vlad5311:Vlad5311@cluster0.ctlwk4z.mongodb.net/db-contacts?retryWrites=true&w=majority")
+  .connect(process.env.DB_HOST)
   .then(() => {
     console.log("Database connection successful");
     app.listen(3000, () => {
