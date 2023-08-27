@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const operations = require("../../models/contacts");
+// const operations = require("../../models/contacts");
 
 const controller = require("../../controllers/index");
 const errorHandler = require("../../helpers/errorHandler");
