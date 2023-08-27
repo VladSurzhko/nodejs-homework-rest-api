@@ -5,7 +5,7 @@ const update = async (req, res) => {
   const { contactId } = req.params;
   const body = req.body;
   const { error } = schema.validate(body);
-  
+
   if (!body.name && !body.email && !body.phone) {
     const missingFieldsError = new Error("missing fields");
     missingFieldsError.status = 400;
@@ -27,9 +27,14 @@ const update = async (req, res) => {
     error.status = 404;
     throw error;
   }
-  res.json(
-    updatedContact,
-  );
+
+  res.json({
+    status: "updated success",
+    data: {
+      result: updatedContact,
+    },
+  });
 };
+
 
 module.exports = update;

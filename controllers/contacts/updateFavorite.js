@@ -18,9 +18,13 @@ const updateFavorite = async (req, res) => {
     error.status = 404;
     throw error;
   }
-    res.status(200).json(
-        updatedContact
-    );
-    };
+
+  res.status(200).json({
+    status: "updated success",
+    data: {
+      result: updatedContact,
+    },
+  });
+};
 
 module.exports = updateFavorite;

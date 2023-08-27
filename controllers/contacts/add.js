@@ -4,15 +4,10 @@ const { schema } = require("../../schemas/schemaJoi");
 const add = async (req, res) => {
   const body = req.body;
   const { error } = schema.validate(body);
-  
   if (error) {
-    const missingField = error.details[0].context.label;
-    const errorMessage = `Missing required ${missingField} field`;
-    const customError = new Error(errorMessage);
-    customError.status = 400;
-    throw customError;
+    error.status = 400;
+    throw error;
   }
-
   const result = await Contact.create(body);
   res.status(201).json({
     status: "success",
@@ -28,20 +23,22 @@ module.exports = add;
 
 
 
-// const operations = require("../../models/contacts");
-// const Joi = require("joi");
 
-// const schema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().required(),
-//   phone: Joi.string().required(),
-// });
+
+
+
+
+
+
+
+
+
 
 // const add = async (req, res) => {
 //   const body = req.body;
 //   const { error } = schema.validate(body);
-
-//     if (error) {
+  
+//   if (error) {
 //     const missingField = error.details[0].context.label;
 //     const errorMessage = `Missing required ${missingField} field`;
 //     const customError = new Error(errorMessage);
@@ -49,8 +46,18 @@ module.exports = add;
 //     throw customError;
 //   }
 
-//   const result = await operations.addContact(body);
-//   res.status(201).json(result);
+//   const result = await Contact.create(body);
+//   res.status(201).json({
+//     status: "success",
+//     code: "201",
+//     data: {
+//       result,
+//     },
+//   });
 // };
 
 // module.exports = add;
+
+
+
+

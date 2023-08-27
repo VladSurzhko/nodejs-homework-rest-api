@@ -8,6 +8,12 @@ const getById = async (req, res) => {
     error.status = 404;
     throw error;
   }
-  res.json(contactById);
+  res.json({
+    status: "success",
+    code: "200",
+    data: {
+      result: contactById,
+    },
+  });
 };
 module.exports = getById;

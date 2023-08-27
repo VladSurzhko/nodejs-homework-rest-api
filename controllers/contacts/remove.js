@@ -9,8 +9,13 @@ const remove = async (req, res) => {
     throw error;
   }
   res.json({
-    message: 'contact deleted'
+    status: "delete success",
+    code: "204",
+    data: {
+      result: deletedContact,
+    },
   });
 };
+
 
 module.exports = remove;
