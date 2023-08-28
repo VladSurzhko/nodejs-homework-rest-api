@@ -8,14 +8,9 @@ const add = async (req, res) => {
     error.status = 400;
     throw error;
   }
+  
   const result = await Contact.create(body);
-  res.status(201).json({
-    status: "success",
-    code: "201",
-    data: {
-      result,
-    },
-  });
+  res.status(201).json(result);
 };
 
 module.exports = add;

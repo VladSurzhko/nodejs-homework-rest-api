@@ -8,13 +8,19 @@ const isValidId = require("../../midllewares/isValidId");
 
 router.get("/", errorHandler(controller.getAll));
 
-router.get("/:contactId", errorHandler(controller.getById));
+router.get("/:contactId",
+isValidId,
+errorHandler(controller.getById));
 
 router.post("/", errorHandler(controller.add));
 
-router.delete("/:contactId", errorHandler(controller.remove));
+router.delete("/:contactId",
+  isValidId,
+  errorHandler(controller.remove));
 
-router.put("/:contactId", errorHandler(controller.update));
+router.put("/:contactId",
+  isValidId,
+  errorHandler(controller.update));
 
 
 router.patch(

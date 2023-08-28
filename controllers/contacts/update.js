@@ -28,12 +28,9 @@ const update = async (req, res) => {
     throw error;
   }
 
-  res.json({
-    status: "updated success",
-    data: {
-      result: updatedContact,
-    },
-  });
+  res.json(
+    updatedContact,
+  );
 };
 
 
