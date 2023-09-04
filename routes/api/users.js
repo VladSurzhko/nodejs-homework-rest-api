@@ -3,12 +3,12 @@ const auth = require("../../middlewares/auth");
 const router = express.Router();
 
 const { users: controller } = require("../../controllers/index");
-const errorHandler = require("../../helpers/errorHandler");
+const ctrlWrapper = require("../../helpers/ctrlWrapper");
 
-router.post("/register", errorHandler(controller.register));
-router.post("/login", errorHandler(controller.login));
-router.get("/current", auth, errorHandler(controller.getCurrent));
-router.post("/logout", auth, errorHandler(controller.logout));
-router.patch("/", auth, errorHandler(controller.updateSubscription));
+router.post("/register", ctrlWrapper(controller.register));
+router.post("/login", ctrlWrapper(controller.login));
+router.get("/current", auth, ctrlWrapper(controller.getCurrent));
+router.post("/logout", auth, ctrlWrapper(controller.logout));
+router.patch("/", auth, ctrlWrapper(controller.updateSubscription));
 
 module.exports = router;

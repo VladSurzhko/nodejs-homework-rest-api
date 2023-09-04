@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { contacts: controller } = require("../../controllers/index");
-const errorHandler = require("../../helpers/errorHandler");
+const errorHandler = require("../../helpers/ctrlWrapper");
 const isValidId = require("../../middlewares/isValidId");
 const auth = require("../../middlewares/auth");
 
