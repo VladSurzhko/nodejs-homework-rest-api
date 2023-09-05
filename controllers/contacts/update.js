@@ -1,11 +1,5 @@
-const operations = require("../../models/contacts");
-const Joi = require("joi");
-
-const schema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
- phone: Joi.string().required(),
-});
+const Contact = require("../../models/contact");
+const { schema } = require("../../schemas/schemaJoi");
 
 const update = async (req, res) => {
   const { contactId } = req.params;
@@ -25,16 +19,19 @@ const update = async (req, res) => {
     customError.status = 400;
     throw customError;
   }
-
-  const updatedContact = await operations.updateContact(contactId, body);
-
+  const updatedContact = await Contact.findByIdAndUpdate(contactId, body, {
+    new: true,
+  });
   if (!updatedContact) {
-    const notFoundError = new Error("Not found");
-    notFoundError.status = 404;
-    throw notFoundError;
+    const error = new Error("Not found");
+    error.status = 404;
+    throw error;
   }
 
-  res.json(updatedContact);
+  res.json(
+    updatedContact,
+  );
 };
+
 
 module.exports = update;
