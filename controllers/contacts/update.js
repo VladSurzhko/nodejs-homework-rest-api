@@ -1,4 +1,4 @@
-const Contact = require("../../models/contact");
+const { Contact } = require("../../models/contact");
 const { schema } = require("../../schemas/schemaJoi");
 
 const update = async (req, res) => {
