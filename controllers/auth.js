@@ -10,8 +10,8 @@ const path = require("path");
 const fs = require("fs/promises");
 const gravatar = require("gravatar");
 const Jimp = require("jimp");
-// const { nanoid } = require("nanoid")
-const { nanoid } = import('nanoid');
+const { nanoid } = require("nanoid")
+// const { nanoid } = import('nanoid');
 
 
 const { BASE_URL } = process.env;
