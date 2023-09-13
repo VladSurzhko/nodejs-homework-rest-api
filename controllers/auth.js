@@ -86,7 +86,7 @@ const resendVerifyEmail = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: 'Verify email',
-    html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${user.verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click verify email</a>`,
   };
 
   await sendEmail(verifyEmail);
@@ -115,7 +115,7 @@ const login = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "23h" });
+  const token = jwt.sign(payload,process.env.SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
