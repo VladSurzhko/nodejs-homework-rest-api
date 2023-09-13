@@ -32,8 +32,8 @@ const register = async (req, res) => {
 
   const newUser = await User.create({ ...req.body,
      password: hashPassword,
-    avatarURL,
-  verificationToken });
+     avatarURL,
+     verificationToken });
 
   const verifyEmail = {
     to: email,
