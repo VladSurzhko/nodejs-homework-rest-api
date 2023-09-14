@@ -38,7 +38,7 @@ const register = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: 'Verify email',
-    html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationToken}">Click verify email</a>`,
     };
   
     await sendEmail(verifyEmail);
@@ -78,15 +78,21 @@ const resendVerifyEmail = async (req, res) => {
   if (!user) {
     throw httpError(400, 'missing required field email');
   }
-
   if (user.verify) {
-    throw httpError(400, 'Verification has already been passed');
-  }
+    res.status(400).json({
+      message: "Verification has already been passed",
+    });
+      return;
+ }
+
+  // if (user.verify) {
+  //   throw httpError(400, 'Verification has already been passed');
+  // }
 
   const verifyEmail = {
     to: email,
     subject: 'Verify email',
-    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${BASE_URL}/users/verify/${user.verificationToken}">Click verify email</a>`,
   };
 
   await sendEmail(verifyEmail);
