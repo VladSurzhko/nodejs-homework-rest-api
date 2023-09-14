@@ -11,7 +11,8 @@ const fs = require("fs/promises");
 const gravatar = require("gravatar");
 const Jimp = require("jimp");
 const { nanoid } = require("nanoid")
-// const { nanoid } = import('nanoid');
+
+const { verifyEmailSchema } = require("../models/user");
 
 
 const { BASE_URL } = process.env;
@@ -73,21 +74,26 @@ const verifyEmail = async (req, res) => {
 
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
-  const user = User.findOne({ email });
-
-  if (!user) {
-    throw httpError(400, 'missing required field email');
+  const { error } = verifyEmailSchema.validate({ email });
+  if (error) {
+    error.status = 400;
+    error.message = "missing required field email";
+    throw error;
   }
+  const user = await User.findOne({ email });
+  if (!user || !user.verify) {
+    httpError(404, "User not found or not verified.");
+  }
+  
+ 
   if (user.verify) {
-    res.status(400).json({
-      message: "Verification has already been passed",
-    });
-      return;
- }
+   res.status(400).json({
+     message: "Verification has already been passed",
+   });
+     return;
+}
 
-  // if (user.verify) {
-  //   throw httpError(400, 'Verification has already been passed');
-  // }
+
 
   const verifyEmail = {
     to: email,
